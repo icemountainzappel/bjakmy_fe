@@ -20,3 +20,32 @@
 .App-link {
   color: #09d3ac;
 } */
+
+html,body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.post-container{
+  border: 1px solid black;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.post-container .image{
+  display: inline-block;
+}
+
+.post-container .image img{
+  margin: 0 auto;
+}
+
+.wrapper {
+  margin-right: auto; /* 1 */
+  margin-left:  auto; /* 1 */
+
+  max-width: 960px; /* 2 */
+
+  padding-right: 10px; /* 3 */
+  padding-left:  10px; /* 3 */
+}

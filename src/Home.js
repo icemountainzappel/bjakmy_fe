@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Slider from "react-slick"
 
 class Home extends React.Component {
 
@@ -53,11 +54,15 @@ class Home extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.fetch = false;
+  }
+
   render() {
     const { lists } = this.state;
 
     return (
-      <div>
+      <div className="wrapper">
         <p>Hello</p>
         <div>
           {
@@ -80,25 +85,51 @@ class Home extends React.Component {
 
 class ChildList extends React.Component {
   render() {
+    const settings = {
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      initialSlide: 0,
+      // centerPadding: "60px",
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
     return (
-      <ul>
+      <Slider {...settings}>
         {
           this.props.list.data.map(res => {
             // console.log(res)
             return (
-              <li key={res.id}>
-                <img src={res.url} alt={res.url} />
-                <Link
+              <div className="post-container" key={res.id}>
+                <Link className="image"
                   to={{
                     pathname: `/detail/${res.id}`
                   }}>
-                  {res.title}</Link>
-                <GrandChildList key={res.id} list={res.images} />
-              </li>
+                  {res.title}<GrandChildList key={res.id} list={res.images} />
+                </Link>
+              </div>
             )
           })
         }
-      </ul>
+      </Slider>
     )
   }
 }
@@ -107,17 +138,17 @@ class GrandChildList extends React.Component {
 
   render() {
     return (
-      <ul>
+      <div>
         {
           this.props.list.map(res => {
             if (res.type === "POSTER") {
               return (
-                <img key={res.id} src={res.url} alt={res.title} />
+                <img width="250" key={res.id} src={res.url} alt={res.title} />
               )
             }
           })
         }
-      </ul>
+      </div>
     )
   }
 }

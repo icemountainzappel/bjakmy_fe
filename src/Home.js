@@ -25,21 +25,42 @@ class Home extends React.Component {
     return (
       <div>
         <p>Hello</p>
-        <ul>
+        <div>
           {
             lists.map(list => {
               if (list.type === "Multi-Title-Manual-Curation") {
+                console.log(list);
                 return (
-                  <li key={list.row_id}>
-                    <a href={list.row_id}>{list.type}</a>
-                  </li>
+                  <div key={list.row_id}>
+                    <p>{list.row_name}</p>
+                    <ChildList key={list.id} list={list} />
+                  </div>
                 )
               }
             })
           }
-        </ul>
+        </div>
       </div>
     );
+  }
+}
+
+class ChildList extends React.Component {
+  render() {
+    return (
+      <ul>
+        {
+          this.props.list.data.map(hit =>
+            <li key={hit.id}>
+              <Link
+                to={{
+                  pathname: `/detail/${hit.id}`
+                }}>
+                {hit.title}</Link>
+            </li>
+          )}
+      </ul>
+    )
   }
 }
 

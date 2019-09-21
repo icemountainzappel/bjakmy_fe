@@ -2,7 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 class Home extends React.Component {
-  page = 2;
+
+  queryPage = 2;
+  fetch = true;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,30 +15,42 @@ class Home extends React.Component {
 
   componentDidMount() {
 
+    // fetch api on load
     fetch('https://cdn-discover.hooq.tv/v1.2/discover/feed?region=ID&page=1&perPage=20')
       .then(res => res.json())
       .then(data => {
         this.setState({ lists: data.data })
-        // console.log(this.state.lists)
       });
 
-    window.addEventListener('scroll', (event) => {
+    window.addEventListener('scroll', () => {
 
+      // if scrolled all the way down
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        console.log("you're at the bottom of the page");
-        fetch('https://cdn-discover.hooq.tv/v1.2/discover/feed?region=ID&page=' + this.page + '&perPage=20')
-          .then(res => res.json())
-          .then(data => {
-            // console.log(data.data)
-            // this.state.lists.push(data.data);
-            this.setState({ lists: [...this.state.lists, ...data.data] })
-          });
-        this.page++;
+
+        if (this.fetch) {
+          // fetch more api
+          fetch('https://cdn-discover.hooq.tv/v1.2/discover/feed?region=ID&page=' + this.queryPage + '&perPage=20')
+            .then(res => res.json())
+            .then(data => {
+              console.log(data.data)
+
+              // if data is not empty
+              if (data.data.length !== 0) {
+
+                // add to state list
+                this.setState({ lists: [...this.state.lists, ...data.data] })
+              } else {
+
+                // stop fetching
+                this.fetch = false;
+              }
+            });
+
+          // query next page
+          this.queryPage++;
+        }
       }
-
     });
-
-
   }
 
   render() {
@@ -48,7 +63,6 @@ class Home extends React.Component {
           {
             lists.map(list => {
               if (list.type === "Multi-Title-Manual-Curation") {
-                // console.log(list);
                 return (
                   <div key={list.row_id}>
                     <p>{list.row_name}</p>

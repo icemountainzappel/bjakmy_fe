@@ -32,7 +32,7 @@ class Home extends React.Component {
           fetch('https://cdn-discover.hooq.tv/v1.2/discover/feed?region=ID&page=' + this.queryPage + '&perPage=20')
             .then(res => res.json())
             .then(data => {
-              console.log(data.data)
+              // console.log(data.data)
 
               // if data is not empty
               if (data.data.length !== 0) {
@@ -61,12 +61,12 @@ class Home extends React.Component {
         <p>Hello</p>
         <div>
           {
-            lists.map(list => {
-              if (list.type === "Multi-Title-Manual-Curation") {
+            lists.map(res => {
+              if (res.type === "Multi-Title-Manual-Curation") {
                 return (
-                  <div key={list.row_id}>
-                    <p>{list.row_name}</p>
-                    <ChildList key={list.id} list={list} />
+                  <div key={res.row_id}>
+                    <p>{res.row_name}</p>
+                    <ChildList key={res.id} list={res} />
                   </div>
                 )
               }
@@ -83,18 +83,44 @@ class ChildList extends React.Component {
     return (
       <ul>
         {
-          this.props.list.data.map(hit =>
-            <li key={hit.id}>
-              <Link
-                to={{
-                  pathname: `/detail/${hit.id}`
-                }}>
-                {hit.title}</Link>
-            </li>
-          )}
+          this.props.list.data.map(res => {
+            // console.log(res)
+            return (
+              <li key={res.id}>
+                <img src={res.url} alt={res.url} />
+                <Link
+                  to={{
+                    pathname: `/detail/${res.id}`
+                  }}>
+                  {res.title}</Link>
+                <GrandChildList key={res.id} list={res.images} />
+              </li>
+            )
+          })
+        }
       </ul>
     )
   }
 }
+
+class GrandChildList extends React.Component {
+
+  render() {
+    return (
+      <ul>
+        {
+          this.props.list.map(res => {
+            if (res.type === "POSTER") {
+              return (
+                <img key={res.id} src={res.url} alt={res.title} />
+              )
+            }
+          })
+        }
+      </ul>
+    )
+  }
+}
+
 
 export default Home

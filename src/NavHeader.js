@@ -30,7 +30,7 @@ export default function NavHeader(props) {
       <HideOnScroll {...props}>
         <AppBar>
           <Toolbar>
-            <Typography variant="h6">Front End Coding</Typography>
+            <Typography variant="h6">Front End Coding Test</Typography>
           </Toolbar>
         </AppBar>
       </HideOnScroll>

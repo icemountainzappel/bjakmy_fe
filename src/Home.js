@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Slider from "react-slick"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Slider from "react-slick";
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Card from '@material-ui/core/Card';
@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import NavHeader from './NavHeader'
+import { Typography } from '@material-ui/core';
 
 class Home extends React.Component {
   queryPage = 2;
@@ -52,10 +52,8 @@ class Home extends React.Component {
 
   render() {
     const { lists } = this.state;
-
     return (
       <React.Fragment>
-        <NavHeader />
         <CssBaseline />
         <Container maxWidth="lg">
           {
@@ -63,11 +61,16 @@ class Home extends React.Component {
               if (res.type === "Multi-Title-Manual-Curation") {
                 return (
                   <section key={res.row_id}>
-                    <h2 className="text-center">{res.row_name}</h2>
+                    <Typography className="text-center m-t-10 m-b-10" variant="h5" color="primary" component="h2">
+                      {res.row_name}
+                    </Typography>
+                    {/* <h2 className="text-center m-b-0 m-t-0">{res.row_name}</h2> */}
                     <ChildList key={res.id} list={res} />
                     <hr />
                   </section>
                 )
+              } else {
+                return null
               }
             })
           }
@@ -150,6 +153,8 @@ class GrandChildList extends React.Component {
                     className="card-image"
                   />
                 )
+              } else {
+                return null
               }
             })
           }

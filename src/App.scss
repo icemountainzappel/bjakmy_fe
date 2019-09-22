@@ -1,0 +1,61 @@
+html,
+body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.text{
+  &-center{
+    text-align: center;
+  }
+}
+
+.MuiContainer-root{
+  section:last-child{
+    hr{
+      border-color: transparent;
+    }
+  }
+}
+
+.post-container{
+  text-align: center;
+  padding: 5px;
+
+  @media (min-width: 901px){
+    padding: 5px 10px;
+  }
+
+  .MuiCard-root {    
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .MuiButton-root{
+    width: 100%;
+  }
+
+  a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+  }
+}
+
+.slick-next:before, .slick-prev:before {
+  color: transparent;
+
+  @media (min-width: 901px){
+    color: black;
+  }
+}
+
+.card-image{
+  height: 480px;
+}
+
+hr{
+  height: 1px;
+  border-color: 'white';
+  margin-top: 30px;
+}

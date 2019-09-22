@@ -1,9 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Slider from "react-slick"
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import NavHeader from './NavHeader'
 
 class Home extends React.Component {
-
   queryPage = 2;
   fetch = true;
 
@@ -15,8 +22,6 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-
-    // fetch api on load
     fetch('https://cdn-discover.hooq.tv/v1.2/discover/feed?region=ID&page=1&perPage=20')
       .then(res => res.json())
       .then(data => {
@@ -24,30 +29,17 @@ class Home extends React.Component {
       });
 
     window.addEventListener('scroll', () => {
-
-      // if scrolled all the way down
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-
         if (this.fetch) {
-          // fetch more api
           fetch('https://cdn-discover.hooq.tv/v1.2/discover/feed?region=ID&page=' + this.queryPage + '&perPage=20')
             .then(res => res.json())
             .then(data => {
-              // console.log(data.data)
-
-              // if data is not empty
               if (data.data.length !== 0) {
-
-                // add to state list
                 this.setState({ lists: [...this.state.lists, ...data.data] })
               } else {
-
-                // stop fetching
                 this.fetch = false;
               }
             });
-
-          // query next page
           this.queryPage++;
         }
       }
@@ -62,23 +54,25 @@ class Home extends React.Component {
     const { lists } = this.state;
 
     return (
-      <div className="wrapper">
-        <p>Hello</p>
-        <div>
+      <React.Fragment>
+        <NavHeader />
+        <CssBaseline />
+        <Container maxWidth="lg">
           {
             lists.map(res => {
               if (res.type === "Multi-Title-Manual-Curation") {
                 return (
-                  <div key={res.row_id}>
-                    <p>{res.row_name}</p>
+                  <section key={res.row_id}>
+                    <h2 className="text-center">{res.row_name}</h2>
                     <ChildList key={res.id} list={res} />
-                  </div>
+                    <hr />
+                  </section>
                 )
               }
             })
           }
-        </div>
-      </div>
+        </Container>
+      </React.Fragment>
     );
   }
 }
@@ -92,7 +86,7 @@ class ChildList extends React.Component {
       slidesToShow: 3,
       slidesToScroll: 3,
       initialSlide: 0,
-      // centerPadding: "60px",
+      lazyLoad: true,
       responsive: [
         {
           breakpoint: 1024,
@@ -116,15 +110,18 @@ class ChildList extends React.Component {
       <Slider {...settings}>
         {
           this.props.list.data.map(res => {
-            // console.log(res)
             return (
               <div className="post-container" key={res.id}>
-                <Link className="image"
-                  to={{
-                    pathname: `/detail/${res.id}`
-                  }}>
-                  {res.title}<GrandChildList key={res.id} list={res.images} />
-                </Link>
+                <Card>
+                  <CardActionArea>
+                    <GrandChildList link={res.id} key={res.id} list={res.images} />
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="medium">
+                      <Link to={{ pathname: `/detail/${res.id}` }}>{res.title}</Link>
+                    </Button>
+                  </CardActions>
+                </Card>
               </div>
             )
           })
@@ -135,23 +132,31 @@ class ChildList extends React.Component {
 }
 
 class GrandChildList extends React.Component {
-
   render() {
     return (
       <div>
-        {
-          this.props.list.map(res => {
-            if (res.type === "POSTER") {
-              return (
-                <img width="250" key={res.id} src={res.url} alt={res.title} />
-              )
-            }
-          })
-        }
+        <Link className="image"
+          to={{
+            pathname: `/detail/${this.props.link}`
+          }}>
+          {
+            this.props.list.map(res => {
+              if (res.type === "POSTER") {
+                return (
+                  <CardMedia
+                    key={res.id}
+                    image={res.url}
+                    title={res.title}
+                    className="card-image"
+                  />
+                )
+              }
+            })
+          }
+        </Link>
       </div>
     )
   }
 }
-
 
 export default Home

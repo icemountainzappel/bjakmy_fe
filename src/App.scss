@@ -35,15 +35,21 @@ $sides: (top, bottom, left, right); // Leave this variable alone
   }
 }
 
+.MuiBreadcrumbs-ol {
+  padding: 5px 16px !important;
+
+  @media (min-width: 600px){
+    padding: 5px 24px !important;
+  } 
+}
+
 .post-container{
   text-align: center;
   padding: 5px;
 
   @media (min-width: 901px){
     padding: 5px 10px;
-  }
-
-  
+  } 
 
   .MuiCard-root {    
     max-width: 320px;
@@ -63,6 +69,7 @@ $sides: (top, bottom, left, right); // Leave this variable alone
 
       .MuiCardActionArea-root{
         display: flex;
+        justify-content: unset;
       }
 
       .MuiCardMedia-root{

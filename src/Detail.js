@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { CssBaseline, Container, Card, CardActionArea, CardActions, CardMedia, CardContent, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { CssBaseline, Container, Card, CardActionArea, CardActions, CardMedia, CardContent, Typography, Breadcrumbs, Paper } from '@material-ui/core';
 
 class Detail extends React.Component {
   constructor(props) {
@@ -34,6 +35,12 @@ class Detail extends React.Component {
       return (
         <React.Fragment>
           <CssBaseline />
+          <Paper elevation={0} >
+            <Breadcrumbs separator='/' aria-label="breadcrumb">
+              <Link color="inherit" to="/">Home</Link>
+              <Typography color="textPrimary">Detail</Typography>
+            </Breadcrumbs>
+          </Paper>
           <Container maxWidth="lg">
             <div className="post-container post-container--detail">
               <Card>

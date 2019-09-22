@@ -8,7 +8,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography, Divider, Breadcrumbs, Paper } from '@material-ui/core';
+
 
 class Home extends React.Component {
   queryPage = 2;
@@ -55,6 +56,11 @@ class Home extends React.Component {
     return (
       <React.Fragment>
         <CssBaseline />
+        <Paper elevation={0} >
+          <Breadcrumbs separator='/' aria-label="breadcrumb">
+            <Typography color="textPrimary">Home</Typography>
+          </Breadcrumbs>
+        </Paper>
         <Container maxWidth="lg">
           {
             lists.map(res => {

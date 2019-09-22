@@ -65,11 +65,8 @@ $sides: (top, bottom, left, right); // Leave this variable alone
     @media (min-width: 901px){
       .MuiCard-root { 
         max-width: none;
-      }
-
-      .MuiCardActionArea-root{
         display: flex;
-        justify-content: unset;
+        align-items: center;
       }
 
       .MuiCardMedia-root{

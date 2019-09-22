@@ -44,21 +44,22 @@ class Detail extends React.Component {
           <Container maxWidth="lg">
             <div className="post-container post-container--detail">
               <Card>
-                <CardActionArea>
-                  <CardMedia
-                    image={imagesUrl}
-                    title={info.title}
-                    className="card-image"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {info.title}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                      {info.description}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+                <CardMedia
+                  image={imagesUrl}
+                  title={info.title}
+                  className="card-image"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {info.title}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {info.description}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {info.languages}
+                  </Typography>
+                </CardContent>
               </Card>
             </div>
           </Container>

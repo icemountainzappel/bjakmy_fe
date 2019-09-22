@@ -43,6 +43,8 @@ $sides: (top, bottom, left, right); // Leave this variable alone
     padding: 5px 10px;
   }
 
+  
+
   .MuiCard-root {    
     max-width: 320px;
     margin: 0 auto;
@@ -50,6 +52,27 @@ $sides: (top, bottom, left, right); // Leave this variable alone
 
   .MuiButton-root{
     width: 100%;
+  }
+
+  &--detail{
+     
+    @media (min-width: 901px){
+      .MuiCard-root { 
+        max-width: none;
+      }
+
+      .MuiCardActionArea-root{
+        display: flex;
+      }
+
+      .MuiCardMedia-root{
+        width: 320px;
+      }
+
+      .MuiCardContent-root {
+        max-width: calc(100% - 320px);
+      }
+    }
   }
 
   a{

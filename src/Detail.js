@@ -35,7 +35,7 @@ class Detail extends React.Component {
         <React.Fragment>
           <CssBaseline />
           <Container maxWidth="lg">
-            <div className="post-container">
+            <div className="post-container post-container--detail">
               <Card>
                 <CardActionArea>
                   <CardMedia
@@ -52,8 +52,6 @@ class Detail extends React.Component {
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
-                </CardActions>
               </Card>
             </div>
           </Container>

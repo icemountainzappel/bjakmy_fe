@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 
 class Home extends React.Component {
   queryPage = 2;
@@ -66,7 +66,7 @@ class Home extends React.Component {
                     </Typography>
                     {/* <h2 className="text-center m-b-0 m-t-0">{res.row_name}</h2> */}
                     <ChildList key={res.id} list={res} />
-                    <hr />
+                    <Divider />
                   </section>
                 )
               } else {

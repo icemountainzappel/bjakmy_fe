@@ -10,6 +10,9 @@ function App() {
         <NavHeader />
         <Main />
       </header>
+      <footer>
+        <span>Dev by <a href="mailto: irfan.abrazak@.gmail.com">Irfan</a> with <a href="https://reactjs.org/">React</a> and <a href="https://material-ui.com/">Material-UI</a></span>
+      </footer>
     </div>
   );
 }

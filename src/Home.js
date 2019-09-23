@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import { Typography, Divider, Breadcrumbs, Paper } from '@material-ui/core';
+import { Typography, Breadcrumbs, Paper } from '@material-ui/core';
 
 
 class Home extends React.Component {
@@ -61,26 +61,26 @@ class Home extends React.Component {
             <Typography color="textPrimary">Home</Typography>
           </Breadcrumbs>
         </Paper>
-        <Container maxWidth="lg">
-          {
-            lists.map(res => {
-              if (res.type === "Multi-Title-Manual-Curation") {
-                return (
-                  <section key={res.row_id}>
+        {/*<Container maxWidth="lg">*/}
+        {
+          lists.map(res => {
+            if (res.type === "Multi-Title-Manual-Curation") {
+              return (
+                <section key={res.row_id}>
+                  <Container maxWidth="lg">
                     <Typography className="text-center m-t-10 m-b-10" variant="h5" color="primary" component="h2">
                       {res.row_name}
                     </Typography>
-                    {/* <h2 className="text-center m-b-0 m-t-0">{res.row_name}</h2> */}
                     <ChildList key={res.id} list={res} />
-                    <Divider />
-                  </section>
-                )
-              } else {
-                return null
-              }
-            })
-          }
-        </Container>
+                  </Container>
+                </section>
+              )
+            } else {
+              return null
+            }
+          })
+        }
+        {/*</Container>*/}
       </React.Fragment>
     );
   }

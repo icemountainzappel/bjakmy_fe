@@ -25,12 +25,13 @@ $sides: (top, bottom, left, right); // Leave this variable alone
   }
 }
 
-.MuiContainer-root{
-  padding-top: 15px;
-  padding-bottom: 15px;
-  section:last-child{
-    hr{
-      background: transparent;
+main{
+  min-height: calc(100vh - 64px - 31px);
+  section{
+    padding: 15px 0;
+
+    &:nth-child(odd){
+      background: white;
     }
   }
 }
@@ -60,7 +61,13 @@ $sides: (top, bottom, left, right); // Leave this variable alone
     width: 100%;
   }
 
-  &--detail{
+  &--detail{    
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    .MuiTypography-colorTextSecondary{
+      text-align: justify;
+    }
      
     @media (min-width: 901px){
       .MuiCard-root { 
@@ -75,6 +82,10 @@ $sides: (top, bottom, left, right); // Leave this variable alone
 
       .MuiCardContent-root {
         max-width: calc(100% - 320px);
+      }
+
+      .MuiTypography-h5{
+        text-align: left;
       }
     }
   }
@@ -98,9 +109,12 @@ $sides: (top, bottom, left, right); // Leave this variable alone
   height: 480px;
 }
 
-hr{
-  height: 1px;
-  margin-top: 30px;
-  background: #e2e2e2;
-  border: 0;
+footer{
+  text-align: center;
+  padding: 5px;
+  // position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  border-top: 1px solid #e2e2e2;
 }

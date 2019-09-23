@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { CssBaseline, Container, Card, CardActionArea, CardActions, CardMedia, CardContent, Typography, Breadcrumbs, Paper } from '@material-ui/core';
+import { CssBaseline, Container, Card, CardMedia, CardContent, Typography, Breadcrumbs, Paper } from '@material-ui/core';
 
 class Detail extends React.Component {
   constructor(props) {
@@ -16,10 +16,18 @@ class Detail extends React.Component {
       .then(data => {
         data.data.images.forEach(el => {
           if (el.type === "POSTER") {
-            console.log(el.url)
             this.setState({
               info: data.data,
-              imagesUrl: el.url
+              imagesUrl: el.url,
+              languages: data.data.languages.join(', '),
+              audios: data.data.audios.join(', '),
+              runningTime: function secondsToHms() {
+                var d = data.data.running_time;
+                var h = Math.floor(d / 3600);
+                var m = Math.floor(d % 3600 / 60);
+                var s = Math.floor(d % 3600 % 60);
+                return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+              }()
             })
           }
         });
@@ -27,8 +35,8 @@ class Detail extends React.Component {
   }
 
   render() {
-    const { info, imagesUrl } = this.state;
-    console.log(this.state)
+    const { info, imagesUrl, languages } = this.state;
+    // console.log(this.state)
 
     if (this.state.info) {
 
@@ -56,8 +64,15 @@ class Detail extends React.Component {
                   <Typography variant="body2" color="textSecondary" component="p">
                     {info.description}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {info.languages}
+                  <Typography className="m-t-15" variant="body2" color="textSecondary" component="p">
+                    <i title="language" className="material-icons" style={{ verticalAlign: 'middle' }}>
+                      language
+                  </i>: {languages}
+                  </Typography>
+                  <Typography className="m-t-15" variant="body2" color="textSecondary" component="p">
+                    <i title="language" className="material-icons" style={{ verticalAlign: 'middle' }}>
+                      access_time
+                  </i>: {info.running_time_friendly}
                   </Typography>
                 </CardContent>
               </Card>
